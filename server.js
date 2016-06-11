@@ -5,9 +5,20 @@ var http = require('http').Server(app); // tells express to start a new server u
 var io = require('socket.io')(http);
 
 app.use(express.static(__dirname + '/public'));
+
 // io.on listens to events(name of the event, callback func())
-io.on('connection', function() {
+io.on('connection', function(socket) {
     console.log('User connected via socket.io!');
+
+    socket.on('message', function(message){
+        console.log('Message recieved: ' + message.text);
+        // send to everyone except the sender:
+        socket.broadcast.emit('message', message);
+    });
+
+    socket.emit('message', {
+        text:'Welcome to the chat application!'
+    });
 });
 
 
