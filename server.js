@@ -8,8 +8,9 @@ app.use(express.static(__dirname + '/public'));
 
 // io.on listens to events(name of the event, callback func())
 io.on('connection', function(socket) {
-    console.log('User connected via socket.io!');
+    console.log('server.js - User connected via socket.io!');
 
+    // on takes two args (string of event name, callback func):
     socket.on('message', function(message){
         console.log('Message recieved: ' + message.text);
         // send to everyone except the sender:
