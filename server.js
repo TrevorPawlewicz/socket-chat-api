@@ -12,7 +12,7 @@ io.on('connection', function(socket) {
 
     // on takes two args (string of event name, callback func):
     socket.on('message', function(message){
-        console.log('Message recieved: ' + message.text);
+        console.log('Message input recieved: ' + message.text);
         // send to everyone except the sender:
         socket.broadcast.emit('message', message);
     });
