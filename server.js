@@ -24,6 +24,7 @@ io.on('connection', function(socket) {
     });
 
     socket.emit('message', {
+        name: 'System',
         text:'Welcome to the chat application!',
         timestamp: moment().valueOf()
     });
@@ -44,7 +45,8 @@ io.on('connection', function(socket) {
 
 
 
-
+//------------------------------------------
 http.listen(PORT, function() {
     console.log('...server has started!');
 });
+//------------------------------------------
