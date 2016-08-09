@@ -1,16 +1,14 @@
 var name   = getQueryVariable('name') || 'Anonymous'; // func in queryParams.js
 var room   = getQueryVariable('room'); // takes string as argument
 var socket = io(); // defined when io library is loaded
-// var name   = getQueryVariable('name'); // func in queryParams.js
-// var room   = getQueryVariable('room'); // takes string as argument
 
-console.log('=====>' + name + ' wants to jon ' + room);
+console.log('=====>' + name + ' wants to join ' + room);
 
 
 socket.on('connect', function(){
     console.log("JS script loaded!");
 });
-
+//------------------------------------------------------
 socket.on('message', function(message){
     var momentTimestamp = moment.utc(message.timestamp);
     //  $ to show we are handling JQuery in the var
@@ -25,7 +23,7 @@ socket.on('message', function(message){
             + ': </strong></p>');
     $message.append('<p>' + message.text + '</p>')
 });
-
+//-------------------------------------------------------
 // handles submiting a new message:
 var $form = jQuery('#message-form');
 

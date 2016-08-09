@@ -13,7 +13,7 @@ io.on('connection', function(socket) {
 
     // on takes two args (string of event name, callback func):
     socket.on('message', function(message){
-        console.log('Message input recieved: ' + message.text);
+        console.log('Message input received: ' + message.text);
 
         message.timestamp = moment().valueOf();
         // send to everyone except the sender:
