@@ -5,6 +5,15 @@
     align-items: center;
 }
 
-#header01 {
-    text-align: center;
+h1 {
+    margin: 24px 0;
+}
+
+
+/* chat.html */
+.messages p {
+    margin: 6px 0;
+}
+#chat-well {
+    margin-top: 35px;
 }
