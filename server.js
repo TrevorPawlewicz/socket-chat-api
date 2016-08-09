@@ -12,10 +12,22 @@ var clientInfo = {}; // to store keys/values of socket.io
 // io.on listens to events(name of the event, callback func())
 io.on('connection', function(socket) {
     console.log('server.js - User connected via socket.io!');
+    //         disconnect is a io key word
+    socket.on('disconnect', function(){
+        var userData = clientInfo[socket.id];
+        if (typeof userData !== 'undefined'){
+            socket.leave(userData.room);
+            io.to(userData.room).emit('message', {
+                name: 'System',
+                text: userData.name + ' has left the room.',
+                timestamp: moment.valueOf()
+            });
+            delete clientInfo[socket.id];
+        }
+    });
 
     socket.on('joinRoom', function(req){
         clientInfo[socket.id] = req;
-
         socket.join(req.room);
         socket.broadcast.to(req.room).emit('message', {
             name: 'System',

@@ -23,7 +23,7 @@ socket.on('message', function(message){
     //  $ to show we are handling JQuery in the var
     var $message = jQuery('.messages'); //
 
-    console.log('New Message: ');
+    console.log('>>> New Message: ');
     console.log(message.text);
 
     // append message to the browser window
