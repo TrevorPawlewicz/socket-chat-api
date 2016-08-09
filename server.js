@@ -1,8 +1,9 @@
-var PORT = process.env.PORT || 3000;
+var PORT    = process.env.PORT || 3000;
 var express = require('express');
-var app = express();
-var http = require('http').Server(app); // tells express to start a new server using our app as the boiler plate.
-var io = require('socket.io')(http);
+var app     = express();
+var http    = require('http').Server(app); // tells express to start a new server using our app as the boiler plate.
+var io      = require('socket.io')(http);
+var moment  = require('moment'); // momentjs.com
 
 app.use(express.static(__dirname + '/public'));
 
@@ -13,6 +14,8 @@ io.on('connection', function(socket) {
     // on takes two args (string of event name, callback func):
     socket.on('message', function(message){
         console.log('Message input recieved: ' + message.text);
+
+        message.timestamp = moment().valueOf();
         // send to everyone except the sender:
         //socket.broadcast.emit('message', message);
         // -OR-
@@ -21,7 +24,8 @@ io.on('connection', function(socket) {
     });
 
     socket.emit('message', {
-        text:'Welcome to the chat application!'
+        text:'Welcome to the chat application!',
+        timestamp: moment().valueOf()
     });
 });
 

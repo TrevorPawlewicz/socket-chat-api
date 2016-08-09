@@ -5,15 +5,18 @@ socket.on('connect', function(){
 });
 
 socket.on('message', function(message){
+    var momentTimestamp = moment.utc(message.timestamp);
+
     console.log('New Message: ');
     console.log(message.text);
 
     // append message to the browser window
-    jQuery('.messages').append('<p>' + message.text + '</p>');
+    jQuery('.messages').append('<p><strong>' + momentTimestamp.local().format('h:mm a') + ': </strong>' + message.text + '</p>');
 });
 
 // handles submiting a new message:
 var $form = jQuery('#message-form');
+
 $form.on('submit', function(event) {
     event.preventDefault();
     //                   find searches inside an element
@@ -23,5 +26,4 @@ $form.on('submit', function(event) {
     });
 
     $message.val(''); // clear input box
-
 });
