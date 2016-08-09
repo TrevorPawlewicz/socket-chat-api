@@ -21,7 +21,8 @@ socket.on('connect', function(){
 socket.on('message', function(message){
     var momentTimestamp = moment.utc(message.timestamp);
     //  $ to show we are handling JQuery in the var
-    var $message = jQuery('.messages'); //
+    var $messages = jQuery('.messages'); //
+    var $message = jQuery('<li class="list-group-item"></li>');//add to unordered list on chat.html
 
     console.log('>>> New Message: ');
     console.log(message.text);
@@ -30,7 +31,8 @@ socket.on('message', function(message){
     $message.append('<p><strong>' + message.name + ' '
             + momentTimestamp.local().format('h:mm a')
             + ': </strong></p>');
-    $message.append('<p>' + message.text + '</p>')
+    $message.append('<p>' + message.text + '</p>');
+    $messages.append($message);
 });
 //-------------------------------------------------------
 

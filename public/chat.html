@@ -3,29 +3,45 @@
     <head>
         <meta charset="utf-8">
         <title>chatty</title>
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/myStyle.css">
     </head>
 
     <body>
-        <a href="/index.html">Change Settings</a>
+        <div class="vertical-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3 well">
+                        <a href="/index.html">Change Settings</a>
 
-        <h1 class="room-title"></h1>
+                        <h1 class="room-title" id="header01"></h1>
 
-        <div class="messages">
-            <!-- Message inserted Here -->
+                        <ul class="messages list-group">
+                            <!-- Message inserted Here -->
+                        </ul>
+
+                        <form id="message-form">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="glyphicon glyphicon-comment"></i>
+                                    </span>
+                                    <input type="text" name="message" class="form-control"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-success btn-block"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <form id="message-form">
-            <input type="text" name="message"/>
-            <input type="submit"/>
-        </form>
 
 
-
-
-
-
-
-        <!-- imported js scripts-->
+        <!-- imported js scripts -->
         <script src="/js/jquery-3.0.0.min.js"></script>
         <script src="/js/socket.io-1.4.5.js"></script>
         <script src="/js/moment.js"></script>
