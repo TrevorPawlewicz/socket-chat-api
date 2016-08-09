@@ -7,20 +7,29 @@ var moment  = require('moment'); // momentjs.com
 
 app.use(express.static(__dirname + '/public'));
 
+var clientInfo = {}; // to store keys/values of socket.io
+
 // io.on listens to events(name of the event, callback func())
 io.on('connection', function(socket) {
     console.log('server.js - User connected via socket.io!');
+
+    socket.on('joinRoom', function(req){
+        clientInfo[socket.id] = req;
+
+        socket.join(req.room);
+        socket.broadcast.to(req.room).emit('message', {
+            name: 'System',
+            text: req.name + ' has joined!',
+            timestamp: moment().valueOf()
+        });
+    });
 
     // on takes two args (string of event name, callback func):
     socket.on('message', function(message){
         console.log('Message input received: ' + message.text);
 
         message.timestamp = moment().valueOf();
-        // send to everyone except the sender:
-        //socket.broadcast.emit('message', message);
-        // -OR-
-        // send message to all browsers:
-        io.emit('message', message);
+        io.to(clientInfo[socket.id].room).emit('message', message);
     });
 
     socket.emit('message', {

@@ -2,12 +2,21 @@ var name   = getQueryVariable('name') || 'Anonymous'; // func in queryParams.js
 var room   = getQueryVariable('room'); // takes string as argument
 var socket = io(); // defined when io library is loaded
 
-console.log('=====>' + name + ' wants to join ' + room);
+console.log('=====> ' + name + ' wants to join ' + room);
 
+// update chat.html h1 tag:
+jQuery('.room-title').text(room);
 
 socket.on('connect', function(){
     console.log("JS script loaded!");
+    // our custom name "joinRoom"
+    socket.emit('joinRoom', {
+        name: name,
+        room: room
+    });
 });
+
+
 //------------------------------------------------------
 socket.on('message', function(message){
     var momentTimestamp = moment.utc(message.timestamp);
@@ -24,6 +33,8 @@ socket.on('message', function(message){
     $message.append('<p>' + message.text + '</p>')
 });
 //-------------------------------------------------------
+
+
 // handles submiting a new message:
 var $form = jQuery('#message-form');
 
